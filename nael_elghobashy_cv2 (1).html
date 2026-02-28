@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nael El Ghobashy - Senior Operations Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #2563eb;
+    --primary-light: #eff6ff;
+    --primary-dark: #1d4ed8;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(255,255,255,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .nav-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .nav-name { font-weight: 600; font-size: 0.92rem; color: var(--text); }
+
+  .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+
+  .nav-links a {
+    display: block;
+    padding: 0.38rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.18s;
+  }
+
+  .nav-links a:hover { background: var(--border-light); color: var(--primary); }
+
+  /* ── LAYOUT ── */
+  .page-wrapper {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 84px 1.5rem 3rem;
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: sticky;
+    top: 76px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .profile-card { text-align: center; padding: 1.75rem 1.5rem 1.5rem; }
+
+  .profile-avatar {
+    width: 76px; height: 76px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 14px rgba(37,99,235,0.28);
+  }
+
+  .profile-name { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+
+  .profile-title { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; line-height: 1.5; }
+
+  .available-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.22rem 0.65rem;
+    border-radius: 20px;
+    margin-top: 0.75rem;
+  }
+
+  .available-dot {
+    width: 6px; height: 6px;
+    background: #16a34a;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+    margin-bottom: 0.9rem;
+  }
+
+  .contact-list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+
+  .contact-item:hover { color: var(--primary); }
+
+  .contact-icon {
+    width: 30px; height: 30px;
+    background: var(--border-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.18s;
+  }
+
+  .contact-item:hover .contact-icon { background: var(--primary-light); }
+
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  .stat-item {
+    background: var(--border-light);
+    border-radius: 8px;
+    padding: 0.85rem;
+    text-align: center;
+  }
+
+  .stat-num { font-size: 1.3rem; font-weight: 700; color: var(--primary); line-height: 1; margin-bottom: 0.25rem; }
+  .stat-lbl { font-size: 0.67rem; color: var(--text-muted); font-weight: 500; line-height: 1.3; }
+
+  .lang-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .lang-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.83rem; }
+  .lang-name { font-weight: 500; color: var(--text); }
+  .lang-level { font-size: 0.72rem; font-weight: 600; color: var(--primary); background: var(--primary-light); padding: 0.15rem 0.55rem; border-radius: 10px; }
+
+  /* ── MAIN ── */
+  .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* Hero */
+  .hero-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: var(--radius);
+    padding: 2.2rem 2rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+
+  .hero-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 80px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; }
+  .hero-name { font-size: 1.85rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; line-height: 1.2; }
+  .hero-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.85); font-weight: 500; margin-bottom: 1rem; }
+  .hero-desc { font-size: 0.87rem; color: rgba(255,255,255,0.75); max-width: 580px; line-height: 1.7; margin-bottom: 1.5rem; }
+
+  .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .btn-white {
+    background: #fff; color: var(--primary);
+    padding: 0.55rem 1.3rem; border-radius: 8px;
+    font-size: 0.83rem; font-weight: 600; text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  .btn-white:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+  .btn-outline-white {
+    background: rgba(255,255,255,0.12); color: #fff;
+    padding: 0.55rem 1.3rem; border-radius: 8px;
+    font-size: 0.83rem; font-weight: 600; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.2s;
+  }
+
+  .btn-outline-white:hover { background: rgba(255,255,255,0.2); }
+
+  /* Section cards */
+  .section-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; box-shadow: var(--shadow-sm); }
+
+  .section-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-icon {
+    width: 36px; height: 36px;
+    background: var(--primary-light);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+
+  .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .section-subtitle { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+  /* Experience */
+  .exp-list { display: flex; flex-direction: column; }
+
+  .exp-item {
+    padding: 1.4rem 0 1.4rem 1.2rem;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+  }
+
+  .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .exp-item:first-child { padding-top: 0; }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.6rem; bottom: 0;
+    width: 2px;
+    background: var(--border-light);
+  }
+
+  .exp-item:first-child::before { background: linear-gradient(to bottom, var(--primary), var(--border-light)); }
+  .exp-item:last-child::before { display: none; }
+
+  .exp-dot {
+    position: absolute;
+    left: -5px; top: 1.55rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--border);
+    z-index: 1;
+  }
+
+  .exp-item:first-child .exp-dot { border-color: var(--primary); background: var(--primary); }
+
+  .exp-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 1rem; margin-bottom: 0.3rem;
+  }
+
+  .exp-role { font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+
+  .exp-badge {
+    font-size: 0.68rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 6px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  .badge-current { background: #dcfce7; color: #166534; }
+  .badge-past { background: var(--border-light); color: var(--text-muted); }
+
+  .exp-meta {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; color: var(--text-muted);
+    margin-bottom: 0.85rem; flex-wrap: wrap;
+  }
+
+  .exp-company { font-weight: 600; color: var(--primary); }
+  .exp-sep { color: var(--border); }
+
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .exp-bullets li {
+    font-size: 0.83rem; color: var(--text-muted);
+    padding-left: 1rem; position: relative; line-height: 1.6;
+  }
+
+  .exp-bullets li::before { content: '•'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+
+  .skill-group-title {
+    font-size: 0.82rem; font-weight: 700; color: var(--text);
+    margin-bottom: 0.65rem;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .skill-tag {
+    font-size: 0.73rem; font-weight: 500;
+    color: var(--text-muted);
+    background: var(--border-light);
+    border: 1px solid var(--border);
+    padding: 0.22rem 0.6rem;
+    border-radius: 6px;
+    transition: all 0.18s;
+  }
+
+  .skill-tag:hover { background: var(--primary-light); color: var(--primary); border-color: #bfdbfe; }
+
+  /* Education */
+  .edu-item { display: flex; gap: 1rem; align-items: flex-start; }
+
+  .edu-icon {
+    width: 44px; height: 44px;
+    background: var(--primary-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+
+  .edu-degree { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+  .edu-school { font-size: 0.82rem; font-weight: 600; color: var(--primary); margin-bottom: 0.3rem; }
+  .edu-meta { display: flex; gap: 1rem; font-size: 0.76rem; color: var(--text-muted); }
+
+  /* Contact section */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+
+  .contact-card {
+    background: var(--border-light);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem;
+    text-align: center; text-decoration: none;
+    transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+
+  .contact-card:hover {
+    background: var(--primary-light); border-color: #bfdbfe;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.12);
+  }
+
+  .contact-card-icon { font-size: 1.4rem; }
+  .contact-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); }
+  .contact-card-value { font-size: 0.8rem; font-weight: 600; color: var(--primary); word-break: break-all; }
+
+  /* Footer */
+  footer {
+    max-width: 1160px; margin: 0 auto;
+    padding: 1.5rem; display: flex;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--text-light);
+  }
+
+  footer a { color: var(--text-muted); text-decoration: none; transition: color 0.18s; }
+  footer a:hover { color: var(--primary); }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .page-wrapper { grid-template-columns: 1fr; padding-top: 76px; }
+    .sidebar { position: static; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 500px) {
+    nav { padding: 0 1rem; }
+    .page-wrapper { padding: 72px 1rem 2rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .hero-card { animation: fadeUp 0.5s ease both; }
+  .sidebar .card:nth-child(1) { animation: fadeUp 0.5s 0.1s ease both; }
+  .sidebar .card:nth-child(2) { animation: fadeUp 0.5s 0.15s ease both; }
+  .sidebar .card:nth-child(3) { animation: fadeUp 0.5s 0.2s ease both; }
+  .sidebar .card:nth-child(4) { animation: fadeUp 0.5s 0.25s ease both; }
+  .main-content > *:nth-child(2) { animation: fadeUp 0.5s 0.15s ease both; }
+  .main-content > *:nth-child(3) { animation: fadeUp 0.5s 0.22s ease both; }
+  .main-content > *:nth-child(4) { animation: fadeUp 0.5s 0.28s ease both; }
+  .main-content > *:nth-child(5) { animation: fadeUp 0.5s 0.34s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-avatar">NE</div>
+    <span class="nav-name">Nael El Ghobashy</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="about">
+
+    <div class="card profile-card">
+      <div class="profile-avatar">NE</div>
+      <div class="profile-name">Nael El Ghobashy</div>
+      <div class="profile-title">Senior Operations Manager<br>FinTech &amp; Global Scale</div>
+      <div class="available-badge">
+        <span class="available-dot"></span>
+        Open to Opportunities
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Contact</div>
+      <div class="contact-list">
+        <a href="mailto:nael.elghobashy@gmail.com" class="contact-item">
+          <div class="contact-icon">📧</div>
+          nael.elghobashy@gmail.com
+        </a>
+        <a href="tel:+201111131181" class="contact-item">
+          <div class="contact-icon">📱</div>
+          +201111131181
+        </a>
+        <a href="https://www.linkedin.com/in/nael-el-ghobashy-140b63b5/" target="_blank" class="contact-item">
+          <div class="contact-icon">💼</div>
+          LinkedIn Profile
+        </a>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          Cairo, Egypt
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">By the Numbers</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num">12+</div>
+          <div class="stat-lbl">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-lbl">Years at Uber</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">150+</div>
+          <div class="stat-lbl">Countries</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">50M</div>
+          <div class="stat-lbl">GMV Generated</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Languages</div>
+      <div class="lang-list">
+        <div class="lang-item">
+          <span class="lang-name">Arabic</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">English</span>
+          <span class="lang-level">Fluent</span>
+        </div>
+      </div>
+      <div style="margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border-light)">
+        <div class="card-label" style="margin-bottom:0.45rem">Availability</div>
+        <p style="font-size:0.8rem;color:var(--text-muted)">Open to international travel and relocation</p>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- Hero -->
+    <div class="hero-card">
+      <div class="hero-eyebrow">Senior Operations Leader · FinTech &amp; Global Scale</div>
+      <div class="hero-name">Nael El Ghobashy</div>
+      <div class="hero-subtitle">Customer Success Operations · Process Optimization · EMEA / APAC / NA</div>
+      <p class="hero-desc">
+        Senior Operations Leader with 12+ years driving operational excellence, process optimization,
+        and measurable performance gains across global Customer Success operations. Deep expertise in
+        KPI frameworks, compliance adherence, risk management, and go-to-market operational readiness.
+        Known for translating complex challenges into actionable, data-driven strategies that deliver
+        sustainable efficiency gains across 150+ countries.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-white">Get in Touch</a>
+        <a href="#experience" class="btn-outline-white">View Experience</a>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="section-card" id="experience">
+      <div class="section-header">
+        <div class="section-icon">💼</div>
+        <div>
+          <div class="section-title">Professional Experience</div>
+          <div class="section-subtitle">A proven track record of driving operational excellence and global growth</div>
+        </div>
+      </div>
+
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <div class="exp-role">Global Help Center Operations Manager</div>
+            <span class="exp-badge badge-current">Current</span>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-company">VALEO</span><span class="exp-sep">|</span>
+            <span>Global</span><span class="exp-sep">|</span>
+            <span>2025 – Present</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Scaled Customer Success operations from 7 to 27 countries with zero increase in resource costs, delivering a 62.5% NPS improvement (40 → 65) through process standardization, SOP enhancements, and operational readiness frameworks aligned to each new market launch.</li>
+            <li>Drove go-to-market operational readiness for 20+ new country deployments, coordinating cross-functional stakeholders to remove bottlenecks and ensure smooth product and market adoption with no degradation in service quality.</li>
+            <li>Built and maintained a comprehensive KPI framework (Quality, AHT, Post-NPS, Adherence, Efficiency, Utilization) to monitor operational performance metrics, escalate risks to leadership, and inform continuous improvement across all regions.</li>
+            <li>Directed vendor performance management, contract negotiations, and cost optimization initiatives; enforced operational controls and compliance requirements across supplier engagements covering 150+ countries.</li>
+            <li>Expanded self-service options through Knowledge Base enhancements and omnichannel tool design, reducing dependency on manual agent support and improving resolution turnaround times at scale.</li>
+            <li>Managed 3-month rolling operational forecasts; led bi-weekly cross-functional stakeholder reviews; oversaw licensing coordination (Salesforce, TecDoc) and supplier recruitment/training, reducing agent attrition through structured performance management systems.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <div class="exp-role">Head of Merchandising, Supply Operations, Growth &amp; Process Optimization</div>
+            <span class="exp-badge badge-past">2025</span>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-company">Kids Trading Co. (Jadwa Investments Subsidiary)</span><span class="exp-sep">|</span>
+            <span>Remote</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Developed and executed supply-side operational strategy achieving SAR 3M cost reduction through optimized stock rotation and replenishment process improvements, demonstrating strong financial oversight and cost discipline.</li>
+            <li>Built a SQL-powered automated stock transfer algorithm that reduced new acquisition costs by 10% and cut aged inventory by 30%, showcasing data-driven process automation applied to operational efficiency.</li>
+            <li>Increased direct revenue by 50%+ through systematic inventory allocation improvements; built customer behavior algorithms that personalized product visibility and increased daily conversion by 35%.</li>
+            <li>Introduced product bundling initiative boosting aging inventory sales by 200%; re-designed product categorization using trend analysis and seasonality data, enhancing conversion across all product lines.</li>
+            <li>Designed and implemented a fraud detection framework targeting referral bonus abuse, identifying and blocking fake accounts and illegitimate orders; recovered $15,000 in direct cost leakage.</li>
+            <li>Identified and remediated an employee discount code leak; designed and enforced a verification process requiring phone authentication and mandatory business email validation, eliminating unauthorized redemptions.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <div class="exp-role">Program Manager – Community Operations, Operational Excellence &amp; Strategic Projects</div>
+            <span class="exp-badge badge-past">2023–2025</span>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-company">ValU Group (EFG Hermes Subsidiary)</span><span class="exp-sep">|</span>
+            <span>Cairo, Egypt</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Spearheaded global expansion generating 50MM GMV while directing a comprehensive rebranding initiative, boosting brand recognition by 30% and partner retention by 15%.</li>
+            <li>Developed merchant and partner lifecycle operational strategy for 7,500+ supply partners: implemented acquisition funnel optimization, automated onboarding workflows increasing conversion by 3.5x and reducing SLA from 15 to 2 days.</li>
+            <li>Reduced churn by 40% while increasing revenue by 25%.</li>
+            <li>Led process improvement initiative to revamp Knowledge Base and redesign escalation workflows using root cause analysis, improving CSAT from 62% to 80% and reducing complaint resolution SLA by 76% (21 to 5 days).</li>
+            <li>Launched agent development program increasing internal promotion rates by 30%.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <div class="exp-role">Community Operations Manager, Customer &amp; Partner Experience</div>
+            <span class="exp-badge badge-past">2022–2023</span>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-company">ValU Group (EFG Hermes Subsidiary)</span><span class="exp-sep">|</span>
+            <span>Cairo, Egypt</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Managed 70+ Customer Success agents across multiple shifts via structured performance management systems, maintaining 90% CSAT.</li>
+            <li>Sourced and hired 50 new specialists from premium companies (Vodafone, Uber, MBC, HSBC).</li>
+            <li>Drove operational efficiency initiative diverting 25%+ of inbound call volume to chat support, reducing operational costs.</li>
+            <li>Launched app support team raising Google Play ratings from 3.1 → 4.2 and Apple Store from 2.4 → 3.4.</li>
+            <li>Led digital transformation deployment of operational tooling (Web Engage CRM, Fresh Sales, Novelvox, Verint), expanding self-service capabilities and enhancing Customer Success team efficiency.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <div class="exp-role">EMEA Customer Support Team Leader, Center of Excellence</div>
+            <span class="exp-badge badge-past">2016–2022</span>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-company">Uber (Europe, Middle East &amp; Africa)</span><span class="exp-sep">|</span>
+            <span>Cairo, Egypt</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Established and led the Cairo Center of Excellence supporting cross-functional Customer Success operations across Rider, Driver, Incident Response, Lost Items, and Eats verticals for the entire EMEA region.</li>
+            <li>Partnered with cross-functional Operations and Product teams to identify systemic process issues and implement data-driven improvements, enhancing operational performance, engagement, and retention across the region.</li>
+            <li>Implemented continuous improvement initiative establishing quality assurance systems in Salesforce, Zendesk, and Bliss, achieving 0% error rates and 20–30% operational efficiency gains.</li>
+            <li>Built and maintained SQL-based reporting and analytics to track KPIs, monitor operational health metrics, and surface actionable insights for senior leadership.</li>
+            <li>Recognized as Team Leader of the Quarter for operational excellence.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <div class="exp-role">Assistant Branch Manager</div>
+            <span class="exp-badge badge-past">2014–2015</span>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-company">Etisalat by e&amp;</span><span class="exp-sep">|</span>
+            <span>Cairo, Egypt</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Progressed from Sales Executive to Assistant Branch Manager through consistent performance; earned multiple Sales Rep of the Month awards.</li>
+            <li>Managed branch operations, staff training, and process improvements across sales and service workflows.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="section-card" id="skills">
+      <div class="section-header">
+        <div class="section-icon">🎯</div>
+        <div>
+          <div class="section-title">Skills &amp; Competencies</div>
+          <div class="section-subtitle">Comprehensive expertise across operations, strategy, and technology</div>
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div>
+          <div class="skill-group-title">🎯 Core Competencies</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Operational Excellence</span>
+            <span class="skill-tag">Process Optimization</span>
+            <span class="skill-tag">Continuous Improvement</span>
+            <span class="skill-tag">KPI Development</span>
+            <span class="skill-tag">SLA Management</span>
+            <span class="skill-tag">NPS &amp; CSAT</span>
+            <span class="skill-tag">SOP Development</span>
+            <span class="skill-tag">Root Cause Analysis</span>
+            <span class="skill-tag">Go-to-Market Readiness</span>
+            <span class="skill-tag">Self-Service Expansion</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">📊 Analytics &amp; Performance</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Data-Driven Decisions</span>
+            <span class="skill-tag">SQL (Advanced)</span>
+            <span class="skill-tag">Advanced Excel</span>
+            <span class="skill-tag">Forecasting &amp; Planning</span>
+            <span class="skill-tag">Performance Metrics</span>
+            <span class="skill-tag">Data Visualization</span>
+            <span class="skill-tag">Process Automation</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">👥 Leadership &amp; Management</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Cross-Functional Leadership</span>
+            <span class="skill-tag">Stakeholder Management</span>
+            <span class="skill-tag">Change Management</span>
+            <span class="skill-tag">Team Development</span>
+            <span class="skill-tag">Vendor Management</span>
+            <span class="skill-tag">Contract Negotiation</span>
+            <span class="skill-tag">Financial Oversight</span>
+            <span class="skill-tag">Cost Optimization</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">🛡️ Risk &amp; Compliance</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Risk Management</span>
+            <span class="skill-tag">Fraud Prevention</span>
+            <span class="skill-tag">Compliance Adherence</span>
+            <span class="skill-tag">Regulatory Alignment</span>
+            <span class="skill-tag">Digital Transformation</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">🛠️ Tools &amp; Platforms</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Salesforce</span>
+            <span class="skill-tag">Zendesk</span>
+            <span class="skill-tag">Bliss</span>
+            <span class="skill-tag">Web Engage CRM</span>
+            <span class="skill-tag">Fresh Sales</span>
+            <span class="skill-tag">Novelvox</span>
+            <span class="skill-tag">Verint</span>
+            <span class="skill-tag">CRM &amp; Analytics</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">🌍 Customer Success</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Customer Success Ops</span>
+            <span class="skill-tag">Escalation Handling</span>
+            <span class="skill-tag">Omnichannel Support</span>
+            <span class="skill-tag">Agent Performance Mgmt</span>
+            <span class="skill-tag">Knowledge Base Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section-card" id="education">
+      <div class="section-header">
+        <div class="section-icon">🎓</div>
+        <div>
+          <div class="section-title">Education</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-icon">🏛️</div>
+        <div>
+          <div class="edu-degree">Bachelor of Business Administration (Management)</div>
+          <div class="edu-school">Ain Shams University</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.4rem">Major in Accounting</div>
+          <div class="edu-meta">
+            <span>📍 Cairo, Egypt</span>
+            <span>📅 2009–2013</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section-card" id="contact">
+      <div class="section-header">
+        <div class="section-icon">📬</div>
+        <div>
+          <div class="section-title">Let's Connect</div>
+          <div class="section-subtitle">Open to discussing opportunities in operations leadership, global scale, and FinTech</div>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <a href="mailto:nael.elghobashy@gmail.com" class="contact-card">
+          <div class="contact-card-icon">📧</div>
+          <div class="contact-card-label">Email</div>
+          <div class="contact-card-value">nael.elghobashy@gmail.com</div>
+        </a>
+        <a href="tel:+201111131181" class="contact-card">
+          <div class="contact-card-icon">📱</div>
+          <div class="contact-card-label">Phone</div>
+          <div class="contact-card-value">+201111131181</div>
+        </a>
+        <a href="https://www.linkedin.com/in/nael-el-ghobashy-140b63b5/" target="_blank" class="contact-card">
+          <div class="contact-card-icon">💼</div>
+          <div class="contact-card-label">LinkedIn</div>
+          <div class="contact-card-value">View Profile →</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div style="display:flex;gap:1.2rem;flex-wrap:wrap">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.linkedin.com/in/nael-el-ghobashy-140b63b5/" target="_blank">LinkedIn</a>
+  </div>
+  <span>© 2026 Nael El Ghobashy. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
